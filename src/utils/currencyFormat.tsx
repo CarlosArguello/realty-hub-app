@@ -1,4 +1,4 @@
-const currencyFormat = (value: number): string => {
+const currencyFormat = (value?: number): string => {
   if (!value) return ""
   return value.toLocaleString("es-CO", {
     style: "currency",

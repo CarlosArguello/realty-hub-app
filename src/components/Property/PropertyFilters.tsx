@@ -13,7 +13,7 @@ const PropertyFilters: React.FC<PropertyFiltersProps> = ({ values, onChangeValue
   const [minPrice, setMinPrice] = useState(0)
   const [maxPrice, setMaxPrice] = useState(0)
   return (
-    <div className="grid grid-cols-4 gap-x-2">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-3 gap-y-2">
       <Field
         type="text"
         placeholder="Nombre"

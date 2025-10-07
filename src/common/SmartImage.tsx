@@ -32,7 +32,10 @@ const SmartImage: React.FC<SmartImageProps> = ({
       />
 
       {!isLoadedImage && (
-        <div className="animate-pulse w-full h-full bg-gray-200 opacity-70 absolute left-0 top-0 z-2" />
+        <div
+          data-testid="skeleton"
+          className="animate-pulse w-full h-full bg-gray-200 opacity-70 absolute left-0 top-0 z-2"
+        />
       )}
     </>
   )

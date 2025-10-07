@@ -11,7 +11,7 @@ type PropertyCardProps = {
 
 const PropertyCard: React.FC<PropertyCardProps> = ({ property, highPriority = false }) => {
   return (
-    <Link to={generatePath(routePaths.properties.details, { id: property?.id })}>
+    <Link to={generatePath(routePaths.properties.details, { id: property?.code })}>
       <article className="group overflow-hidden bg-white border-b-1 border-b-slate-100 pb-3">
         <div className="relative h-110 rounded-md overflow-hidden">
           <SmartImage
@@ -28,7 +28,9 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, highPriority = fa
           <p className="mt-1 font-normal text-slate-600">{property.address}</p>
 
           <div className="mt-2 flex justify-end">
-            <span className="font-bold text-slate-900">{currencyFormat(property.price)}</span>
+            <span className="font-bold text-slate-900" data-testid="price">
+              {currencyFormat(property.price)}
+            </span>
           </div>
         </div>
       </article>

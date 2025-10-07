@@ -3,9 +3,9 @@ import currencyFormat from "../../utils/currencyFormat"
 
 const PropertyDetailsSection: React.FC<Omit<PropertyDetails, "id">> = (property) => (
   <section>
-    <dl className="flex flex-col gap-y-7">
+    <dl className="flex flex-col gap-y-4 md:gap-y-7">
       <div>
-        <h1 className="text-3xl font-semibold">{property.name}</h1>
+        <h1 className="text-2xl md:text-3xl font-semibold">{property.name}</h1>
         <dd className="text-slate-700">{property.address}</dd>
       </div>
 
@@ -35,13 +35,15 @@ const PropertyDetailsSection: React.FC<Omit<PropertyDetails, "id">> = (property)
         </p>
       </div>
 
-      <div className="mt-4">
+      <div className="md:mt-4">
         <dt className="text-sm font-semibold">Precio:</dt>
-        <dd className="text-2xl font-bold">{currencyFormat(property.price)}</dd>
+        <dd className="text-2xl font-bold" data-testid="price">
+          {currencyFormat(property.price)}
+        </dd>
       </div>
     </dl>
     <div className="mt-10">
-      <button className="bg-black hover:bg-gray-800 text-white py-4 px-8 rounded-lg cursor-pointer font-semibold">
+      <button className="bg-black hover:bg-gray-800 text-white py-4 px-8 rounded-lg cursor-pointer font-semibold w-full md:w-auto">
         Agendar visita
       </button>
     </div>

@@ -1,6 +1,6 @@
 const PropertyDetailsSectionSkeleton = () => {
   return (
-    <div className="flex flex-col gap-y-8">
+    <div className="flex flex-col gap-y-5 md:gap-y-8">
       <div>
         <div className="h-8 w-2/3 rounded bg-slate-200 animate-pulse" />
         <div className="mt-1 h-4 w-1/2 rounded bg-slate-200 animate-pulse" />

@@ -17,19 +17,19 @@ const PropertyDetails = () => {
     enabled: !!id
   })
 
-  if (!property?.id) return null
-
   return (
     <Layout>
-      <div className="w-full flex gap-x-10 ">
-        <div className="w-5/12 rounded-lg overflow-hidden">
-          <SmartImage
-            priority="high"
-            src={`${property.images.file}?w=550&ar=4:5&fit=crop&fm=webp`}
-          />
+      <div className="w-full lg:flex gap-x-10 ">
+        <div className="w-full lg:w-5/12 rounded-lg overflow-hidden">
+          {property?.code && (
+            <SmartImage
+              priority="high"
+              src={`${property.images.file}?w=550&ar=4:5&fit=crop&fm=webp`}
+            />
+          )}
         </div>
-        <div className="w-6/12 py-5">
-          {isLoading ? (
+        <div className="lg:w-6/12 py-5">
+          {isLoading || !property?.code ? (
             <PropertyDetailsSectionSkeleton />
           ) : (
             <PropertyDetailsSection {...property} />

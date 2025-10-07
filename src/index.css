@@ -1,12 +1,10 @@
 @import "tailwindcss";
 
 
-/* Mapear la sans del tema a Manrope */
 @theme {
   --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto;
 }
 
-/* Aplicarla globalmente */
 @layer base {
   html { @apply font-sans text-slate-900 antialiased; }
 }

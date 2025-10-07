@@ -1,11 +1,11 @@
 export type Property = {
-  id: string
+  code: string
   name: string
   address: string
   price: number
   year: number
-  ownerId: string
-  ownerName?: string
+  // ownerId: string
+  // ownerName?: string
   fileUrl?: string
 }
 
@@ -18,7 +18,7 @@ export type PropertyFilters = {
 }
 
 export type PropertyDetails = {
-  id: string
+  code: string
   name: string
   address: string
   price: number
