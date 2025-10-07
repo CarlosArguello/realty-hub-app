@@ -3,12 +3,20 @@ import { getProperties } from "../../api/propertiesApi"
 import PropertyCard from "./PropertyCard"
 import PropertyCardSkeleton from "./PropertyCardSkeleton"
 import VisibleMarker from "../../common/VisibleMarker"
-import Layout from "../../common/Layout"
+import { useState } from "react"
+import PropertyFilters from "./PropertyFilters"
+import type { PropertyFilters as PropertyFiltersType } from "../../types/property"
+import useDebounce from "../../hooks/useDebounce"
+import { Layout } from "../../common/Layout"
 
 const Property = () => {
+  const [filters, setFilters] = useState<Partial<PropertyFiltersType>>({})
+  const debouncedFilters = useDebounce(filters)
+
   const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useInfiniteQuery({
-    queryKey: ["properties"],
-    queryFn: async ({ pageParam }) => await getProperties({ page: pageParam, pageSize: 6 }),
+    queryKey: ["properties", debouncedFilters],
+    queryFn: async ({ pageParam }) =>
+      await getProperties({ page: pageParam, pageSize: 6, ...debouncedFilters }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       if (lastPage.page * lastPage.pageSize < lastPage.total) return lastPage.page + 1
@@ -24,7 +32,12 @@ const Property = () => {
     <Layout>
       <div className="max-w-10/12 mx-auto px-4 min-h-screen">
         <h1 className="text-2xl font-bold">Propiedades disponibles:</h1>
-        <div className="grid grid-cols-3 gap-x-20 gap-y-10 mt-5">
+
+        <div className="mt-6 mb-8">
+          <PropertyFilters values={filters} onChangeValues={setFilters} />
+        </div>
+
+        <div className="grid grid-cols-3 gap-x-20 gap-y-10">
           {properties?.map((property, index) => (
             <PropertyCard key={property.id} property={property} highPriority={index <= 3} />
           ))}

@@ -7,4 +7,9 @@ const currencyFormat = (value: number): string => {
   })
 }
 
+export const currencyToNumber = (currency: string): number | null => {
+  const digits = currency.replace(/\D/g, "")
+  return digits ? Number(digits) : null
+}
+
 export default currencyFormat

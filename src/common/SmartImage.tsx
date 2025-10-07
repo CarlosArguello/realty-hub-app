@@ -20,10 +20,10 @@ const SmartImage: React.FC<SmartImageProps> = ({
   return (
     <>
       <img
+        src={src}
         loading={highPriority ? "eager" : "lazy"}
         decoding={highPriority ? "auto" : "async"}
         fetchPriority={highPriority ? "high" : "low"}
-        src={`${src}?w=410&ar=3:5&fit=crop&fm=webp&q=50`}
         onLoad={() => setTimeout(() => setIsLoadedImage(true), 400)}
         className={`w-full h-full object-cover transition-opacity duration-500 ${
           isLoadedImage ? "opacity-100" : "opacity-0"
