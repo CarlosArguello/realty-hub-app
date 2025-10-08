@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { getPropertyById } from "./api" // Importa la API local de la feature
 
 export const usePropertyDetails = () => {
   const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate()
 
   const queryResult = useQuery({
     queryKey: ["property-details", id],
@@ -11,8 +12,13 @@ export const usePropertyDetails = () => {
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     refetchOnMount: false,
-    enabled: !!id
+    enabled: !!id,
+    retry: false
   })
+
+  const isError = queryResult?.isError
+
+  if (isError) navigate("/404")
 
   return {
     property: queryResult.data,

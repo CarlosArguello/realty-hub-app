@@ -3,6 +3,7 @@ import SmartImage from "../../../common/ui/SmartImage"
 import currencyFormat from "../../../common/utils/currencyFormat"
 import { generatePath, Link } from "react-router-dom"
 import routePaths from "../../../routes/routePaths"
+import { useIsMobile } from "@common/hooks/useIsMobile"
 
 type PropertyCardProps = {
   property: Property
@@ -10,6 +11,12 @@ type PropertyCardProps = {
 }
 
 const PropertyCard: React.FC<PropertyCardProps> = ({ property, highPriority = false }) => {
+  const isMobile = useIsMobile()
+
+  const propsImage = isMobile
+    ? "w=250&ar=4:5&fit=crop&fm=webp&q=50"
+    : "w=330&ar=3:5&fit=crop&fm=webp&q=50"
+
   return (
     <Link to={generatePath(routePaths.properties.details, { id: property?.code })}>
       <article
@@ -18,7 +25,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, highPriority = fa
       >
         <div className="relative h-110 rounded-md overflow-hidden">
           <SmartImage
-            src={`${property.fileUrl}?w=330&ar=3:5&fit=crop&fm=webp&q=50`}
+            src={`${property.fileUrl}?${propsImage}`}
             priority={highPriority ? "high" : "lazy"}
             className="group-hover:scale-105"
           />

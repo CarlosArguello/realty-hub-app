@@ -1,7 +1,8 @@
 const routePaths = {
+  root: "/",
   properties: {
-    root: "/",
-    details: "/:id"
+    root: "/properties",
+    details: "/properties/:id"
   }
 }
 

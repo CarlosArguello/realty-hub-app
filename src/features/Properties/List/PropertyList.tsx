@@ -3,8 +3,10 @@ import PropertyCardSkeleton from "./PropertyCardSkeleton"
 import VisibleMarker from "@common/ui/VisibleMarker"
 import PropertyFilters from "./PropertyFilters"
 import { usePropertyList } from "./usePropertyList"
+import { useIsMobile } from "@common/hooks/useIsMobile"
 
 const PropertyList = () => {
+  const isMobile = useIsMobile()
   const {
     properties,
     filters,
@@ -25,7 +27,11 @@ const PropertyList = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-20 gap-y-10">
         {properties?.map((property, index) => (
-          <PropertyCard key={property.code} property={property} highPriority={index <= 3} />
+          <PropertyCard
+            key={property.code}
+            property={property}
+            highPriority={!isMobile ? index <= 3 : index === 0}
+          />
         ))}
 
         {isLoading &&
