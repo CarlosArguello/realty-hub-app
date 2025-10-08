@@ -18,7 +18,7 @@ const PropertyList = () => {
   } = usePropertyList()
 
   return (
-    <div className="max-w-full xl:max-w-11/12 2xl:max-w-10/12 mx-auto px-4 min-h-screen">
+    <div className="max-w-full 2xl:max-w-10/12 mx-auto px-4 min-h-screen">
       <h1 className="text-2xl font-bold">Propiedades disponibles:</h1>
 
       <div className="mt-6 mb-8">

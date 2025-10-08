@@ -1,73 +1,51 @@
-# React + TypeScript + Vite
+# 🏠 RealtyHubApp Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Proyecto React/TypeScript construido sobre **Vite**
 
-Currently, two official plugins are available:
+La arquitectura se enfoca en el **aislamiento de la lógica** y el **flujo de dependencia unidireccional** (`@features` solo usa `@entities` y `@common`).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Setup y Requisitos
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Para correr este proyecto, necesitas lo siguiente:
 
-## Expanding the ESLint configuration
+- **Node.js:** Versión 18+ (20 recomendado).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Primeros Pasos
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1.  Instala todas las dependencias:
+    ```bash
+    npm install
+    ```
+2.  Inicia el servidor de desarrollo:
+    ```bash
+    npm run dev
+    ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 💻 Flujo de Trabajo y Scripts Esenciales
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+| Comando         | Descripción                                          |
+| :-------------- | :--------------------------------------------------- |
+| `npm run dev`   | Despliega la aplicación en modo desarrollo (HMR).    |
+| `npm run build` | Construye la _app_ final para producción en `/dist`. |
+| `npm run test`  | Ejecuta todos los _tests_ unitarios con **Vitest**.  |
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 🚀 Prueba de Rendimiento hacerlas en mode (Preview)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Correr **Lighthouse**: `npm run buld & npm run preview`
+
+---
+
+## Arquitectura
+
+La estructura de `src/` se divide en capas por responsabilidad, usando alias absolutos para la portabilidad.
+
+| Alias           | Capa            | Responsabilidad                                                                                  |
+| :-------------- | :-------------- | :----------------------------------------------------------------------------------------------- |
+| **`@pages`**    | Composición     | Monta las _features_ en las rutas. **Libre de lógica de negocio.**                               |
+| **`@features`** | Negocio/Dominio | Funcionalidades completas (`/properties/list`). Incluye _hooks_ de datos y APIs locales.         |
+| **`@entities`** | Modelos         | Tipos de datos centrales (`IProperty`, `IOwner`). El diccionario del negocio.                    |
+| **`@common`**   | Utilidades      | Componentes de UI (`<Inputs>`), _hooks_ genéricos (`useDebounce`), y librerías base (`http.ts`). |
