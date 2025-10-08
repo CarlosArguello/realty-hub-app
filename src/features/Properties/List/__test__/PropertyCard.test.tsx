@@ -1,9 +1,10 @@
-import { MemoryRouter } from "react-router-dom"
+import { generatePath, MemoryRouter } from "react-router-dom"
 import { render, screen } from "@testing-library/react"
 import PropertyCard from "../PropertyCard"
 import { Property } from "@entities/property"
 import { expect, it } from "vitest"
 import currencyFormat from "@common/utils/currencyFormat"
+import routePaths from "@routes/routePaths"
 
 const property: Property = {
   code: "123",
@@ -27,5 +28,8 @@ it("render PropertyCard", () => {
   expect(name).toBeInTheDocument()
   expect(address).toBeInTheDocument()
   expect(price.textContent).toBe(currencyFormat(property.price))
-  expect(link).toHaveAttribute("href", `/${property.code}`)
+  expect(link).toHaveAttribute(
+    "href",
+    generatePath(routePaths.properties.details, { id: property?.code })
+  )
 })
